@@ -38,3 +38,7 @@ Due to time constraint, there are some aspects need further inspection and devel
 
 - Most of tests are performed using Implicit Wait which will add time to the test script execution time. In other to troubleshoot this issue, an Explicit Wait should be applied.
 - Using regular expression to validate password.
+
+## Repository
+
+- https://github.com/tamtran2885/orange-hrm-test-project
