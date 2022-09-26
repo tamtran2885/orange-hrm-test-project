@@ -9,7 +9,7 @@ class UserStatusTypes {
 }
 
 class UserInfo {
-  static USERNAME = "TranTam";
+  static USERNAME = "Tran.Tam";
   static PASSWORD = "Admin123!";
   static CONFIRMED_PASSWORD = "Admin123!";
   static HINT = "Pa";

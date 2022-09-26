@@ -16,7 +16,7 @@ const {
 } = require("../constants/utils.constants");
 
 describe("My Login application", async () => {
-  it("should login with valid credentials", async () => {
+  it("Should login with valid credentials", async () => {
     await LoginPage.open();
     await LoginPage.enterUserName(AdminInfo.USERNAME);
     await LoginPage.enterPassword(AdminInfo.PASSWORD);
@@ -27,7 +27,7 @@ describe("My Login application", async () => {
     expect(pageHeading).toHaveText(HomePageInfo.HEADING);
   });
 
-  xit("should not login with invalid credentials", async () => {
+  xit("Should not login with invalid credentials", async () => {
     await LoginPage.open();
     await LoginPage.enterUserName("Adminn");
     await LoginPage.enterPassword(UserInfo.PASSWORD);
@@ -60,7 +60,7 @@ describe("My Login application", async () => {
       }
     }
 
-    // enter Status
+    // Select status option
     await selectedInput[1].click();
 
     const statusOptions = await AddUserPage.options;
@@ -73,7 +73,7 @@ describe("My Login application", async () => {
       }
     }
 
-    // enter Employee Name
+    // Choose Employee Name
     const inputEmployeeName = await AddUserPage.inputEmployeeName;
     await inputEmployeeName.setValue(UserInfo.HINT);
     await browser.pause(Timer.MEDIUM);
@@ -88,22 +88,65 @@ describe("My Login application", async () => {
       }
     }
 
-    // username
+    // Enter username
     await AddUserPage.enterUserName(UserInfo.USERNAME);
-    // await browser.pause(Timer.MEDIUM);
 
     // enter password
     await AddUserPage.enterPassword(UserInfo.PASSWORD);
-    // await browser.pause(Timer.LONG);
 
     // enter confirmed password
     await AddUserPage.enterConfirmedPassword(UserInfo.CONFIRMED_PASSWORD);
-    // await browser.pause(Timer.LONG);
 
     // click save button
     await AddUserPage.clickSaveBtn();
 
-    // check input value
+    /***** check input values *******/
+    const requiredFields = await AddUserPage.requiredFields;
+
+    // check username input value
+    if (!AddUserPage.getUserNameInputValue()) {
+      expect(requiredFields[3]).toHaveText(Message.REQUIRED);
+    }
+
+    if (AddUserPage.getUserNameInputValue().length < 5) {
+      expect(requiredFields[3]).toHaveText(Message.USERNAME_MINIMUM_LENGTH);
+    }
+
+    // check Employee Name input values
+    if (!AddUserPage.getEmployeeNameInputValue()) {
+      expect(requiredFields[1]).toHaveText(Message.REQUIRED);
+    }
+
+    // check password value
+    if (!AddUserPage.getPasswordInputValue()) {
+      expect(requiredFields[4]).toHaveText(Message.REQUIRED);
+    }
+
+    if (AddUserPage.getPasswordInputValue().length < 9) {
+      expect(requiredFields[4]).toHaveText(Message.PASSWORD_MINIMUM_LENGTH);
+    }
+
+    // check confirmed password input value
+    if (!AddUserPage.getConfirmedPasswordInputValue()) {
+      expect(requiredFields[5]).toHaveText(Message.REQUIRED);
+    }
+
+    // check password match
+    if (
+      AddUserPage.getPasswordInputValue() ===
+      AddUserPage.getConfirmedPasswordInputValue()
+    ) {
+      expect(requiredFields[5]).toHaveText(Message.PASSWORD_NOT_MATCH);
+    }
+
+    // check user roles and status input values
+    if (AddUserPage.getUserRolesInputText === "-- Select --") {
+      expect(requiredFields[0]).toHaveText(Message.REQUIRED);
+    }
+
+    if (AddUserPage.getStatusInputText === "-- Select --") {
+      expect(requiredFields[1]).toHaveText(Message.REQUIRED);
+    }
 
     // Save successfully
     const notification = AddUserPage.notification;
@@ -112,7 +155,7 @@ describe("My Login application", async () => {
     await browser.pause(Timer.SHORT);
   });
 
-  it("test to check new user on grid board", async () => {
+  it("Should display new user on grid board", async () => {
     await AdminTabScreen.clickUserManagementTab();
     await AdminTabScreen.clickUsersOption();
     await browser.pause(Timer.MEDIUM);
@@ -129,7 +172,7 @@ describe("My Login application", async () => {
     await browser.pause(Timer.MEDIUM);
   });
 
-  it("Test displaying employee by username search", async () => {
+  it("Should display user info by searching", async () => {
     const inputUsername = await AdminTabScreen.inputUsername;
 
     await inputUsername.setValue(UserInfo.USERNAME);
@@ -140,7 +183,7 @@ describe("My Login application", async () => {
     expect(headingResult).toHaveText("(1) Record Found");
   });
 
-  it("test to check value exist with reset button", async () => {
+  it("Should display grid of users after resetting", async () => {
     await AdminTabScreen.clickResetBtn();
     await browser.pause(Timer.MEDIUM);
 
@@ -157,7 +200,7 @@ describe("My Login application", async () => {
     await browser.pause(Timer.SHORT);
   });
 
-  it("test to delete a user", async () => {
+  it("Should delete a user by clicking on remove item", async () => {
     await HomePage.clickAdminLink();
     await AdminTabScreen.clickUserManagementTab();
     await AdminTabScreen.clickUsersOption();
@@ -181,7 +224,7 @@ describe("My Login application", async () => {
     }
   });
 
-  it("test to check a user no available after being deleted", async () => {
+  it("Should not display the user info on grid board after being deleted", async () => {
     const userNameCard = await AdminTabScreen.userNameCard;
 
     let userNameList = [];

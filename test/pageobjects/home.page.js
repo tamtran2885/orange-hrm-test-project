@@ -5,16 +5,15 @@ const Page = require("./page");
  */
 class HomePage extends Page {
   /**
-   * define selectors using getter methods
+   * define selectors using getter methods - Admin Link
    */
 
-  // Admin tab
   get adminLink() {
     return $("ul[class=oxd-main-menu]>li:first-child>a");
   }
 
   /**
-   * open user system view
+   * click Admin link to access user system view
    */
   async clickAdminLink() {
     await this.adminLink.click();

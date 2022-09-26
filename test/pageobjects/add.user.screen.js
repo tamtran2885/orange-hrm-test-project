@@ -11,6 +11,10 @@ class AddUserPage extends Page {
     return $$(".oxd-select-text");
   }
 
+  get selectedInputText() {
+    return $$(".oxd-select-text-input");
+  }
+
   get options() {
     return $$("[role=option]>span");
   }
@@ -39,6 +43,10 @@ class AddUserPage extends Page {
     return $(".oxd-toast-content>p:nth-child(2)");
   }
 
+  get requiredFields() {
+    return $$(".oxd-input-group>span");
+  }
+
   /**
    * enter username, password and confirmed password
    */
@@ -52,6 +60,33 @@ class AddUserPage extends Page {
 
   async enterConfirmedPassword(confirmedPassword) {
     await this.inputConfirmedPassword.setValue(confirmedPassword);
+  }
+
+  /**
+   * get values of input fields
+   */
+  async getUserNameInputValue() {
+    await this.inputUsername.getValue();
+  }
+
+  async getEmployeeNameInputValue() {
+    await this.inputEmployeeName.getValue();
+  }
+
+  async getPasswordInputValue() {
+    await this.inputPassword.getValue();
+  }
+
+  async getConfirmedPasswordInputValue() {
+    await this.confirmedPassword.getValue();
+  }
+
+  async getUserRolesInputText() {
+    await (await this.selectedInputText[0]).getText();
+  }
+
+  async getStatusInputText() {
+    await (await this.selectedInputText[1]).getText();
   }
 
   // click Save button
