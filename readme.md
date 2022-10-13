@@ -24,10 +24,6 @@ To run our test suite:
 - Navigate to the folder where the project is located.
 - Run "npm run test"
 
-## Generate report with allure:
-
-- Run "allure generate allure-results/ && allure open"
-
 ## Other Details:
 
 - baseUrl: "https://opensource-demo.orangehrmlive.com"
