@@ -24,18 +24,10 @@ class LoginPage extends Page {
     return errorMessage;
   }
 
-  // enter username
-  async enterUserName(username) {
+  // login
+  async login(username, password) {
     await this.inputUsername.setValue(username);
-  }
-
-  // enter password
-  async enterPassword(password) {
     await this.inputPassword.setValue(password);
-  }
-
-  // click Login button
-  async clickLoginBtn() {
     await this.btnSubmit.click();
   }
 

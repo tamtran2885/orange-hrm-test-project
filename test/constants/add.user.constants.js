@@ -9,10 +9,10 @@ class UserStatusTypes {
 }
 
 class UserInfo {
-  static USERNAME = "Tran.Tam";
+  static USERNAME = "bbbcccc";
   static PASSWORD = "Admin123!";
   static CONFIRMED_PASSWORD = "Admin123!";
-  static HINT = "Pa";
+  static HINT = "a";
 }
 
 module.exports = { UserRoleTypes, UserStatusTypes, UserInfo };

@@ -40,11 +40,13 @@ class AdminTabScreen extends Page {
   }
 
   get userNameCard() {
-    return $$(".oxd-table-card>div>div:nth-child(2)>div");
+    return $$(
+      ".card-center>.card-item.card-body-slot>.oxd-table-cell:first-child>.oxd-table-card-cell>.data"
+    );
   }
 
   get deleteBtn() {
-    return $$(".oxd-table-card>div>div:nth-child(6)>div>button:first-child");
+    return $$(".oxd-table-cell-actions>button:first-child");
   }
 
   get notification() {

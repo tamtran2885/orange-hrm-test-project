@@ -1,4 +1,5 @@
 const Page = require("./page");
+const AddUser = require("../helpers/pageobjects/add.user");
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -36,7 +37,7 @@ class AddUserPage extends Page {
   }
 
   get saveBtn() {
-    return $("button[type=submit");
+    return $(".oxd-form-actions>button[type=submit]");
   }
 
   get notification() {
@@ -48,18 +49,39 @@ class AddUserPage extends Page {
   }
 
   /**
-   * enter username, password and confirmed password
+   * enter employee name, username, userRole, status, password, confirmed password
    */
-  async enterUserName(username) {
+
+  async selectUserRole(index = 0, userRole) {
+    return AddUser.selectOption(0, userRole);
+  }
+
+  async selectStatus(index = 1, status) {
+    return AddUser.selectOption(1, status);
+  }
+
+  async selectEmployeeName(hint, timer) {
+    return AddUser.selectOptionByHint(hint, timer);
+  }
+
+  // add new user
+  async addNewUser(
+    userRole,
+    hint,
+    timer,
+    status,
+    username,
+    password,
+    confirmedPassword
+  ) {
+    await this.selectUserRole(0, userRole);
+    await this.selectEmployeeName(hint, timer);
+    await this.selectStatus(1, status);
     await this.inputUsername.setValue(username);
-  }
-
-  async enterPassword(password) {
     await this.inputPassword.setValue(password);
-  }
-
-  async enterConfirmedPassword(confirmedPassword) {
     await this.inputConfirmedPassword.setValue(confirmedPassword);
+    await browser.pause(timer);
+    await this.clickSaveBtn();
   }
 
   /**
